@@ -15,11 +15,15 @@ import com.blastbeatsandcode.clocksapp.utils.Messages;
 
 public class MainActivity extends AppCompatActivity implements ClockView {
 
+    DateTimeModel _model;
+    ClockController _controller;
+    TextView text;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Create the objects we need for the application
-        ClockController _controller = new ClockController();
-        DateTimeModel _model = new DateTimeModel(_controller);
+        _controller = new ClockController();
+        _model = new DateTimeModel(_controller);
         _controller.registerModel(_model);
 
         // Register this main activity as a view
@@ -32,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements ClockView {
 
         // TODO: This is only temporary. Update this and make it do something useful.
         // Set the temporary text
-        TextView tempText = (TextView) findViewById(R.id.temp_text);
-        tempText.setText("CURRENT TIME\n\n" + _model.getDate().toString());
+        text = (TextView) findViewById(R.id.temp_text);
+        text.setText("CURRENT TIME\n\n" + _model.getDate().toString());
 
         setSupportActionBar(toolbar);
 
@@ -52,5 +56,12 @@ public class MainActivity extends AppCompatActivity implements ClockView {
                         "and a toast has been made!");
             }
         });
+    }
+
+    // Update the view
+    @Override
+    public void update() {
+        // Set the temporary text
+        text.setText("CURRENT TIME\n\n" + _model.getDate().toString());
     }
 }

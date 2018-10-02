@@ -48,6 +48,9 @@ public class ClockController {
      */
     public void update()
     {
-        // Notify views that the model has been updated
+        for(ClockView v : _views)
+        {
+            v.update();
+        }
     }
 }
