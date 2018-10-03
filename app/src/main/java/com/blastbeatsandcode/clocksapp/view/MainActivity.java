@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity implements ClockView {
     @Override
     public void update() {
         // Set the temporary text
-        text.setText("CURRENT TIME\n\n" + _model.getDate().toString());
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                text.setText("CURRENT TIME\n\n" + _model.getDate().toString());
+            }
+        });
     }
 }
