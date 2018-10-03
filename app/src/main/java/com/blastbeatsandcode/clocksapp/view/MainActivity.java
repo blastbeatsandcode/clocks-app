@@ -32,14 +32,11 @@ public class MainActivity extends AppCompatActivity implements ClockView {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         // TODO: This is only temporary. Update this and make it do something useful.
         // Set the temporary text
         text = (TextView) findViewById(R.id.temp_text);
         text.setText("CURRENT TIME\n\n" + _model.getDate().toString());
-
-        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
