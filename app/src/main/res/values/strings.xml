@@ -3,4 +3,9 @@
     <string name="title_activity_main">Clocks App</string>
     <string name="choose_time">Set Time</string>
     <string name="choose_date">Set Date</string>
+    <string name="close_menu">Close</string>
+    <string name="add_analog_clock">Add Analog Clock</string>
+    <string name="add_digital_clock">Add Digital Clock</string>
+    <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
 </resources>

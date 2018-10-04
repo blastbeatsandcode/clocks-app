@@ -3,7 +3,7 @@ package com.blastbeatsandcode.clocksapp.view;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+//import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.DatePicker;
@@ -14,6 +14,8 @@ import com.blastbeatsandcode.clocksapp.R;
 import com.blastbeatsandcode.clocksapp.controller.ClockController;
 import com.blastbeatsandcode.clocksapp.model.DateTimeModel;
 import com.blastbeatsandcode.clocksapp.utils.Messages;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -47,16 +49,16 @@ public class MainActivity extends AppCompatActivity implements ClockView {
         String dateStr = dateFormat.format(_c.getDate()).toString();
         text.setText("CURRENT TIME\n\n" + dateStr);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        // Floating action button, button press
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Messages.MakeToast(getApplicationContext(), "The button has been pressed " +
-                        "and a toast has been made!");
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//
+//        // Floating action button, button press
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Messages.MakeToast(getApplicationContext(), "The button has been pressed " +
+//                        "and a toast has been made!");
+//            }
+//        });
     }
 
     // Update the view
