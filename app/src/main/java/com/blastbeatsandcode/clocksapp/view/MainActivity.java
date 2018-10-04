@@ -1,33 +1,40 @@
 package com.blastbeatsandcode.clocksapp.view;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.blastbeatsandcode.clocksapp.R;
 import com.blastbeatsandcode.clocksapp.controller.ClockController;
 import com.blastbeatsandcode.clocksapp.model.DateTimeModel;
 import com.blastbeatsandcode.clocksapp.utils.Messages;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity implements ClockView {
 
-    DateTimeModel _model;
-    ClockController _controller;
+    DateTimeModel _m;
+    ClockController _c;
     TextView text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Create the objects we need for the application
-        _controller = new ClockController();
-        _model = new DateTimeModel(_controller);
-        _controller.registerModel(_model);
+        _c = new ClockController();
+        _m = new DateTimeModel(_c);
+        _c.registerModel(_m);
 
         // Register this main activity as a view
-        _controller.registerView(this);
+        _c.registerView(this);
 
 
         super.onCreate(savedInstanceState);
@@ -36,16 +43,13 @@ public class MainActivity extends AppCompatActivity implements ClockView {
         // TODO: This is only temporary. Update this and make it do something useful.
         // Set the temporary text
         text = (TextView) findViewById(R.id.temp_text);
-        text.setText("CURRENT TIME\n\n" + _model.getDate().toString());
+        DateFormat dateFormat = new SimpleDateFormat("MMMM dd, YYYY hh:mm:ss aa");
+        String dateStr = dateFormat.format(_c.getDate()).toString();
+        text.setText("CURRENT TIME\n\n" + dateStr);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Add some new clocks and stuff!", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
+        // Floating action button, button press
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,8 +66,74 @@ public class MainActivity extends AppCompatActivity implements ClockView {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                text.setText("CURRENT TIME\n\n" + _model.getDate().toString());
+                DateFormat dateFormat = new SimpleDateFormat("MMMM dd, YYYY hh:mm:ss aa");
+                String dateStr = dateFormat.format(_c.getDate()).toString();
+                text.setText("CURRENT TIME\n\n" + dateStr);
             }
         });
+    }
+
+    /*
+     * Open the time picker dialog to set the time
+     * The button assignment is made in the XML layout file
+     */
+    public void OpenTimePickerDialog(View view) {
+        final Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+
+        // Launch Time Picker Dialog
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        // Update the time in the controller
+                        // Update the date in the controller
+                        // Get current time settings
+                        final Date d = _c.getDate();
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(d);
+                        cal.set(Calendar.HOUR, hourOfDay);
+                        cal.set(Calendar.MINUTE, minute);
+                        cal.set(Calendar.SECOND, 0);
+
+                        // update the time
+                        _c.setTime(cal.getTime());
+                    }
+                }, hour, minute, false);
+        timePickerDialog.show();
+    }
+
+    /*
+     * Open the date picker dialog to set the date
+     * The button assignment is made in the XML layout file
+     */
+    public void OpenDatePickerDialog(View view) {
+        // Get Current Date
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        // Launch date picker dialog
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        // Update the date in the controller
+                        // Get current time settings
+                        final Date d = _c.getDate();
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(d);
+                        cal.set(Calendar.YEAR, year);
+                        cal.set(Calendar.MONTH, monthOfYear);
+                        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                        // update the time
+                        _c.setTime(cal.getTime());
+                    }
+                }, year, month, day);
+        datePickerDialog.show();
     }
 }

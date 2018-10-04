@@ -59,6 +59,7 @@ public class DateTimeModel {
     {
         _currentTime = dateTime;
         update();
+
     }
 
     /*

@@ -4,6 +4,7 @@ import com.blastbeatsandcode.clocksapp.model.DateTimeModel;
 import com.blastbeatsandcode.clocksapp.view.ClockView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /*
  * ClockController is the controller for Clocks-App.
@@ -42,7 +43,12 @@ public class ClockController {
         _views.add(v);
     }
 
-    // TODO: Implement this!
+
+    public Date getDate()
+    {
+        return _m.getDate();
+    }
+
     /*
      * Update the views
      */
@@ -53,4 +59,14 @@ public class ClockController {
             v.update();
         }
     }
+
+    /*
+     *  Sets the date in the model.
+     */
+    public void setTime(Date date)
+    {
+        _m.setDate(date);
+        update();
+    }
+
 }
