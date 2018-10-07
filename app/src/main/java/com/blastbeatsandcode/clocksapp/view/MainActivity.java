@@ -3,18 +3,17 @@ package com.blastbeatsandcode.clocksapp.view;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-//import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.blastbeatsandcode.clocksapp.R;
 import com.blastbeatsandcode.clocksapp.controller.ClockController;
 import com.blastbeatsandcode.clocksapp.model.DateTimeModel;
-import com.blastbeatsandcode.clocksapp.utils.Messages;
-import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
 import java.text.DateFormat;
@@ -59,6 +58,23 @@ public class MainActivity extends AppCompatActivity implements ClockView {
 //                        "and a toast has been made!");
 //            }
 //        });
+
+        FloatingActionMenu fabMenu = (FloatingActionMenu) findViewById(R.id.menu);
+        fabMenu.setClosedOnTouchOutside(true);
+        fabMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
+
+            @Override
+            public void onMenuToggle(boolean opened) {
+                if (opened)
+                {
+
+                }
+                else {
+
+                }
+            }
+        });
+
     }
 
     // Update the view
@@ -137,5 +153,25 @@ public class MainActivity extends AppCompatActivity implements ClockView {
                     }
                 }, year, month, day);
         datePickerDialog.show();
+    }
+
+    public void AddDigitalClockView(View view)
+    {
+        Log.d("TEST", "ADDING DIGITAL CLOCK");
+    }
+
+    public void AddAnalogClockView(View view)
+    {
+        Log.d("TEST", "ADDING ANALOG CLOCK");
+    }
+
+    public void Undo(View view)
+    {
+        Log.d("TEST", "UNDO");
+    }
+
+    public void Redo(View view)
+    {
+        Log.d("TEST", "REDO");
     }
 }
