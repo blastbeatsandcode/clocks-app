@@ -5,8 +5,10 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -14,10 +16,7 @@ import android.widget.TimePicker;
 import com.blastbeatsandcode.clocksapp.R;
 import com.blastbeatsandcode.clocksapp.controller.ClockController;
 import com.blastbeatsandcode.clocksapp.model.DateTimeModel;
-import com.github.clans.fab.FloatingActionMenu;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -25,6 +24,10 @@ public class MainActivity extends AppCompatActivity implements ClockView {
 
     DateTimeModel _m;
     ClockController _c;
+    LinearLayout _viewsList;
+    ScrollView _scrollView;
+
+    // TODO: Remove this, it is temporary
     TextView text;
 
     @Override
@@ -41,12 +44,11 @@ public class MainActivity extends AppCompatActivity implements ClockView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // TODO: This is only temporary. Update this and make it do something useful.
-        // Set the temporary text
-        text = (TextView) findViewById(R.id.temp_text);
-        DateFormat dateFormat = new SimpleDateFormat("MMMM dd, YYYY hh:mm:ss aa");
-        String dateStr = dateFormat.format(_c.getDate()).toString();
-        text.setText("CURRENT TIME\n\n" + dateStr);
+        // Get the linear layout where we will append the views
+        _viewsList = (LinearLayout) findViewById(R.id.scrollview_list);
+
+        // Get the scrollview so we can control it
+        _scrollView = (ScrollView) findViewById(R.id.scrollview);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //
@@ -59,21 +61,21 @@ public class MainActivity extends AppCompatActivity implements ClockView {
 //            }
 //        });
 
-        FloatingActionMenu fabMenu = (FloatingActionMenu) findViewById(R.id.menu);
-        fabMenu.setClosedOnTouchOutside(true);
-        fabMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
-
-            @Override
-            public void onMenuToggle(boolean opened) {
-                if (opened)
-                {
-
-                }
-                else {
-
-                }
-            }
-        });
+//        FloatingActionMenu fabMenu = (FloatingActionMenu) findViewById(R.id.menu);
+//        fabMenu.setClosedOnTouchOutside(true);
+//        fabMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
+//
+//            @Override
+//            public void onMenuToggle(boolean opened) {
+//                if (opened)
+//                {
+//
+//                }
+//                else {
+//
+//                }
+//            }
+//        });
 
     }
 
@@ -81,14 +83,14 @@ public class MainActivity extends AppCompatActivity implements ClockView {
     @Override
     public void update() {
         // Set the temporary text
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                DateFormat dateFormat = new SimpleDateFormat("MMMM dd, YYYY hh:mm:ss aa");
-                String dateStr = dateFormat.format(_c.getDate()).toString();
-                text.setText("CURRENT TIME\n\n" + dateStr);
-            }
-        });
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                DateFormat dateFormat = new SimpleDateFormat("MMMM dd, YYYY hh:mm:ss aa");
+//                String dateStr = dateFormat.format(_c.getDate()).toString();
+//                text.setText("CURRENT TIME\n\n" + dateStr);
+//            }
+//        });
     }
 
     /*
@@ -158,6 +160,11 @@ public class MainActivity extends AppCompatActivity implements ClockView {
     public void AddDigitalClockView(View view)
     {
         Log.d("TEST", "ADDING DIGITAL CLOCK");
+        View digitalClockview = LayoutInflater.from(this).inflate(R.layout.digital_clock_view, null);
+        DigitalClockView clockView = new DigitalClockView(getApplicationContext(), null, _c, (TextView) digitalClockview.findViewById(R.id.time_text), this);
+        _viewsList.addView(digitalClockview);
+        _c.registerView(clockView);
+        scrollToBottom();
     }
 
     public void AddAnalogClockView(View view)
@@ -173,5 +180,17 @@ public class MainActivity extends AppCompatActivity implements ClockView {
     public void Redo(View view)
     {
         Log.d("TEST", "REDO");
+    }
+
+    /*
+     * Scroll to the bottom of the ScrollView
+     */
+    public void scrollToBottom()
+    {
+        _scrollView.post(new Runnable() {
+            public void run() {
+                _scrollView.fullScroll(View.FOCUS_DOWN);
+            }
+        });
     }
 }
