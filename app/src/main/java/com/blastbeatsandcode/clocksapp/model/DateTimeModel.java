@@ -2,11 +2,14 @@ package com.blastbeatsandcode.clocksapp.model;
 
 import android.util.Log;
 
+import com.blastbeatsandcode.clocksapp.controller.ClockCommandQueue;
 import com.blastbeatsandcode.clocksapp.controller.ClockController;
 
 import java.time.Clock;
 import java.util.Calendar;
 import java.util.Date;
+
+import com.blastbeatsandcode.clocksapp.controller.SetTimeCommand;
 import com.blastbeatsandcode.clocksapp.utils.Messages;
 
 import static android.content.ContentValues.TAG;
@@ -60,7 +63,6 @@ public class DateTimeModel {
     {
         _currentTime = dateTime;
         update();
-
     }
 
     /*

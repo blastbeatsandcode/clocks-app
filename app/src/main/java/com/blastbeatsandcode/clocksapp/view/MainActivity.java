@@ -181,11 +181,13 @@ public class MainActivity extends AppCompatActivity implements ClockView {
     public void Undo(View view)
     {
         Log.d("TEST", "UNDO");
+        ClockController.getInstance().undo();
     }
 
     public void Redo(View view)
     {
         Log.d("TEST", "REDO");
+        ClockController.getInstance().redo();
     }
 
     /*
