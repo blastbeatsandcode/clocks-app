@@ -15,7 +15,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.blastbeatsandcode.clocksapp.R;
+import com.blastbeatsandcode.clocksapp.controller.ClockCommandQueue;
 import com.blastbeatsandcode.clocksapp.controller.ClockController;
+import com.blastbeatsandcode.clocksapp.controller.SetTimeCommand;
 import com.blastbeatsandcode.clocksapp.model.DateTimeModel;
 
 import java.util.Calendar;
@@ -120,7 +122,10 @@ public class MainActivity extends AppCompatActivity implements ClockView {
                         cal.set(Calendar.SECOND, 0);
 
                         // update the time
-                        _c.setTime(cal.getTime());
+                        SetTimeCommand c = new SetTimeCommand(cal.getTime());
+                        ClockCommandQueue.getInstance().add(c);
+                        c.Execute();
+                        //_c.setTime(cal.getTime());
                     }
                 }, hour, minute, false);
         timePickerDialog.show();

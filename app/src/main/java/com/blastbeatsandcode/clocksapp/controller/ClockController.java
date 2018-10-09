@@ -119,7 +119,8 @@ public class ClockController {
      */
     public void setTime(Date date)
     {
-        ClockCommandQueue.getInstance().add(new SetTimeCommand(date));
+        _m.setDate(date);
+        update();
     }
 
     public void undo()

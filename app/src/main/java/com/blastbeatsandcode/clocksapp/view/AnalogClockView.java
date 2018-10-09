@@ -63,7 +63,6 @@ public class AnalogClockView extends View implements ClockView {
      */
     private void init()
     {
-            Log.d("Test","Got into Init!!!");
         // Set default characteristics
         _height = 0;
         _width = 0;
@@ -170,9 +169,8 @@ public class AnalogClockView extends View implements ClockView {
                 // We have to run this on the main UI thread, which is why this view accepts an activity in the constructor
                 ((Activity) _uiThreadActivity).runOnUiThread(new Runnable() {
                     public void run() {
-                            Log.d("Test","Update hands on analog clock!!");
+                        // Invalidate the drawing so that it will be redrawn with current information
                         invalidate(0,0,getWidth(),getHeight());
-                            //invalidate();
                     }
                 });
             }

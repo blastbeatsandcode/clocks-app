@@ -1,5 +1,7 @@
 package com.blastbeatsandcode.clocksapp.controller;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +32,6 @@ public class ClockCommandQueue
         _stack.add(c);
         _curIndex++;
         _maxIndex = _curIndex;
-        //c.Execute();
-
     }
 
     /*
@@ -39,8 +39,11 @@ public class ClockCommandQueue
      */
     public void undo()
     {
-        _stack.get(_curIndex).UnExecute();
-        _curIndex--; // Decrement current index
+        // If 0 or below, we don't have any more commands to Undo
+        if (_curIndex > 0) {
+            _curIndex--; // Decrement current index
+            _stack.get(_curIndex).UnExecute();
+        }
     }
 
 
