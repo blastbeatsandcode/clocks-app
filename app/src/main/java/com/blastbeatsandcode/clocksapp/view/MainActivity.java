@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AnalogClock;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements ClockView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Create the objects we need for the application
-        _c = new ClockController();
+        _c = ClockController.getInstance();
         _m = new DateTimeModel(_c);
         _c.registerModel(_m);
 
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements ClockView {
     {
         Log.d("TEST", "ADDING DIGITAL CLOCK");
         View digitalClockview = LayoutInflater.from(this).inflate(R.layout.digital_clock_view, null);
-        DigitalClockView clockView = new DigitalClockView(getApplicationContext(), null, _c, (TextView) digitalClockview.findViewById(R.id.time_text), this);
+        DigitalClockView clockView = new DigitalClockView(getApplicationContext(), null, (TextView) digitalClockview.findViewById(R.id.time_text), this);
         _viewsList.addView(digitalClockview);
         _c.registerView(clockView);
         scrollToBottom();
@@ -170,6 +171,11 @@ public class MainActivity extends AppCompatActivity implements ClockView {
     public void AddAnalogClockView(View view)
     {
         Log.d("TEST", "ADDING ANALOG CLOCK");
+        View analogClockView = LayoutInflater.from(this).inflate(R.layout.analog_clock_view, null, true);
+        AnalogClockView clockView = new AnalogClockView(getApplicationContext(), null, this);
+        _viewsList.addView(analogClockView);
+        _c.registerView(clockView);
+        scrollToBottom();
     }
 
     public void Undo(View view)

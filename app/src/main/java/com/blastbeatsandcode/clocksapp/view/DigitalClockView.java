@@ -35,10 +35,10 @@ public class DigitalClockView extends LinearLayout implements ClockView {
      * We specify the Textview so we can set it
      * We specify the activity so we can update the UI thread with the time. It is not possible otherwise
      */
-    public DigitalClockView(Context context, @Nullable AttributeSet attrs, ClockController c, TextView textView, Activity activity)
+    public DigitalClockView(Context context, @Nullable AttributeSet attrs, TextView textView, Activity activity)
     {
         super(context, attrs);
-        _c = c;
+        _c = ClockController.getInstance();
         _uiThreadActivity = activity;
         setOrientation(LinearLayout.VERTICAL);
         LayoutInflater.from(context).inflate(R.layout.digital_clock_view, this, true);

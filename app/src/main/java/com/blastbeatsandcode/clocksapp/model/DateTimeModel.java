@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.blastbeatsandcode.clocksapp.controller.ClockController;
 
+import java.time.Clock;
 import java.util.Calendar;
 import java.util.Date;
 import com.blastbeatsandcode.clocksapp.utils.Messages;
@@ -17,7 +18,7 @@ public class DateTimeModel {
     // Constructor for the DateTimeModel
     public DateTimeModel(ClockController c)
     {
-        _c = c;
+        _c = ClockController.getInstance();
 
         // Set current time as the actual current time by default
         _currentTime = Calendar.getInstance().getTime();
