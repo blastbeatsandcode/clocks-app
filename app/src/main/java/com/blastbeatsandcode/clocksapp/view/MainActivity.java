@@ -19,6 +19,7 @@ import com.blastbeatsandcode.clocksapp.controller.ClockCommandQueue;
 import com.blastbeatsandcode.clocksapp.controller.ClockController;
 import com.blastbeatsandcode.clocksapp.controller.SetTimeCommand;
 import com.blastbeatsandcode.clocksapp.model.DateTimeModel;
+import com.ikovac.timepickerwithseconds.MyTimePickerDialog;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -104,14 +105,37 @@ public class MainActivity extends AppCompatActivity implements ClockView {
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
+        int second = c.get(Calendar.SECOND);
 
         // Launch Time Picker Dialog
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                new TimePickerDialog.OnTimeSetListener() {
+//        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+//                new TimePickerDialog.OnTimeSetListener() {
+//
+//                    @Override
+//                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//                        // Update the time in the controller
+//                        // Update the date in the controller
+//                        // Get current time settings
+//                        final Date d = _c.getDate();
+//                        Calendar cal = Calendar.getInstance();
+//                        cal.setTime(d);
+//                        cal.set(Calendar.HOUR, hourOfDay);
+//                        cal.set(Calendar.MINUTE, minute);
+//                        cal.set(Calendar.SECOND, 0);
+//
+//                        // update the time
+//                        SetTimeCommand c = new SetTimeCommand(cal.getTime());
+//                        ClockCommandQueue.getInstance().add(c);
+//                        c.Execute();
+//                        //_c.setTime(cal.getTime());
+//                    }
+//                }, hour, minute, false);
+//        timePickerDialog.show();
+        MyTimePickerDialog mTimePicker = new MyTimePickerDialog(this, new MyTimePickerDialog.OnTimeSetListener() {
 
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        // Update the time in the controller
+            @Override
+            public void onTimeSet(com.ikovac.timepickerwithseconds.TimePicker view, int hourOfDay, int minute, int seconds) {
+                // Update the time in the controller
                         // Update the date in the controller
                         // Get current time settings
                         final Date d = _c.getDate();
@@ -119,16 +143,29 @@ public class MainActivity extends AppCompatActivity implements ClockView {
                         cal.setTime(d);
                         cal.set(Calendar.HOUR, hourOfDay);
                         cal.set(Calendar.MINUTE, minute);
-                        cal.set(Calendar.SECOND, 0);
+                        cal.set(Calendar.SECOND, seconds);
+
+
+
+//                        if (hourOfDay >= 12)
+//                        {
+//                            Log.d("test", "Should be PM");
+//                            cal.set(Calendar.AM_PM, Calendar.PM);
+//                        }
+//                        else
+//                        {
+//                            Log.d("test", "Should be AM");
+//                            cal.set(Calendar.AM_PM, Calendar.AM);
+//                        }
 
                         // update the time
                         SetTimeCommand c = new SetTimeCommand(cal.getTime());
                         ClockCommandQueue.getInstance().add(c);
                         c.Execute();
-                        //_c.setTime(cal.getTime());
-                    }
-                }, hour, minute, false);
-        timePickerDialog.show();
+            }
+        }, hour, minute, second, true);
+        mTimePicker.show();
+
     }
 
     /*
