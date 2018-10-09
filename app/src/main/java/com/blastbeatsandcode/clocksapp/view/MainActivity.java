@@ -157,7 +157,9 @@ public class MainActivity extends AppCompatActivity implements ClockView {
                         cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
                         // update the time
-                        _c.setTime(cal.getTime());
+                        SetTimeCommand c = new SetTimeCommand(cal.getTime());
+                        ClockCommandQueue.getInstance().add(c);
+                        c.Execute();
                     }
                 }, year, month, day);
         datePickerDialog.show();
@@ -165,7 +167,6 @@ public class MainActivity extends AppCompatActivity implements ClockView {
 
     public void AddDigitalClockView(View view)
     {
-        Log.d("TEST", "ADDING DIGITAL CLOCK");
         View digitalClockview = LayoutInflater.from(this).inflate(R.layout.digital_clock_view, null);
         DigitalClockView clockView = new DigitalClockView(getApplicationContext(), null, (TextView) digitalClockview.findViewById(R.id.time_text), this);
         _viewsList.addView(digitalClockview);
@@ -175,7 +176,6 @@ public class MainActivity extends AppCompatActivity implements ClockView {
 
     public void AddAnalogClockView(View view)
     {
-        Log.d("TEST", "ADDING ANALOG CLOCK");
         View analogClockView = LayoutInflater.from(this).inflate(R.layout.analog_clock_view, null, true);
         AnalogClockView clockView = new AnalogClockView(getApplicationContext(), null, this);
         _viewsList.addView(analogClockView);
@@ -185,13 +185,11 @@ public class MainActivity extends AppCompatActivity implements ClockView {
 
     public void Undo(View view)
     {
-        Log.d("TEST", "UNDO");
         ClockController.getInstance().undo();
     }
 
     public void Redo(View view)
     {
-        Log.d("TEST", "REDO");
         ClockController.getInstance().redo();
     }
 
