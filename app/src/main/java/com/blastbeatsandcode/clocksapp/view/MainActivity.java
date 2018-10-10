@@ -107,63 +107,28 @@ public class MainActivity extends AppCompatActivity implements ClockView {
         int minute = c.get(Calendar.MINUTE);
         int second = c.get(Calendar.SECOND);
 
-        // Launch Time Picker Dialog
-//        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-//                new TimePickerDialog.OnTimeSetListener() {
-//
-//                    @Override
-//                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//                        // Update the time in the controller
-//                        // Update the date in the controller
-//                        // Get current time settings
-//                        final Date d = _c.getDate();
-//                        Calendar cal = Calendar.getInstance();
-//                        cal.setTime(d);
-//                        cal.set(Calendar.HOUR, hourOfDay);
-//                        cal.set(Calendar.MINUTE, minute);
-//                        cal.set(Calendar.SECOND, 0);
-//
-//                        // update the time
-//                        SetTimeCommand c = new SetTimeCommand(cal.getTime());
-//                        ClockCommandQueue.getInstance().add(c);
-//                        c.Execute();
-//                        //_c.setTime(cal.getTime());
-//                    }
-//                }, hour, minute, false);
-//        timePickerDialog.show();
         MyTimePickerDialog mTimePicker = new MyTimePickerDialog(this, new MyTimePickerDialog.OnTimeSetListener() {
-
             @Override
             public void onTimeSet(com.ikovac.timepickerwithseconds.TimePicker view, int hourOfDay, int minute, int seconds) {
                 // Update the time in the controller
                         // Update the date in the controller
                         // Get current time settings
-                        final Date d = _c.getDate();
+                        Date d = _c.getDate();
                         Calendar cal = Calendar.getInstance();
                         cal.setTime(d);
                         cal.set(Calendar.HOUR, hourOfDay);
                         cal.set(Calendar.MINUTE, minute);
                         cal.set(Calendar.SECOND, seconds);
 
-
-
-//                        if (hourOfDay >= 12)
-//                        {
-//                            Log.d("test", "Should be PM");
-//                            cal.set(Calendar.AM_PM, Calendar.PM);
-//                        }
-//                        else
-//                        {
-//                            Log.d("test", "Should be AM");
-//                            cal.set(Calendar.AM_PM, Calendar.AM);
-//                        }
+                        // There was an issue with the AM and PM not being properly set and for some reason this fixes it??
+                        cal.set(Calendar.AM_PM, Calendar.AM);
 
                         // update the time
                         SetTimeCommand c = new SetTimeCommand(cal.getTime());
                         ClockCommandQueue.getInstance().add(c);
                         c.Execute();
             }
-        }, hour, minute, second, true);
+        }, hour, minute, second, false);
         mTimePicker.show();
 
     }

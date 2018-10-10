@@ -1,5 +1,7 @@
 package com.blastbeatsandcode.clocksapp.controller;
 
+import android.util.Log;
+
 import com.blastbeatsandcode.clocksapp.model.DateTimeModel;
 import com.blastbeatsandcode.clocksapp.view.ClockView;
 
@@ -61,13 +63,28 @@ public class ClockController {
         return _m.getDate();
     }
 
+    /*
+     * Returns "AM" or "PM" based on the current time
+     */
+    public String isAMOrPM()
+    {
+        if (getHour() >= 12)
+            return "PM";
+        else
+            return "AM";
+    }
+
     public int getHour()
     {
-        SimpleDateFormat format = new SimpleDateFormat("hh");
+        SimpleDateFormat format = new SimpleDateFormat("HH"); // Returns the 24-hour format
         String strDate = format.format(_m.getDate());
+
         return Integer.parseInt(strDate);
     }
 
+    /*
+     * Returns the current minutes value
+     */
     public int getMinute()
     {
         SimpleDateFormat format = new SimpleDateFormat("mm");
@@ -75,6 +92,9 @@ public class ClockController {
         return Integer.parseInt(strDate);
     }
 
+    /*
+     * Returns the current seconds value
+     */
     public int getSecond()
     {
         SimpleDateFormat format = new SimpleDateFormat("ss");
@@ -82,6 +102,9 @@ public class ClockController {
         return Integer.parseInt(strDate);
     }
 
+    /*
+     * Returns the current day of month
+     */
     public int getDayOfMonth ()
     {
         SimpleDateFormat format = new SimpleDateFormat("dd");
@@ -89,6 +112,9 @@ public class ClockController {
         return Integer.parseInt(strDate);
     }
 
+    /*
+     * Returns the current month of year
+     */
     public int getMonthOfYear()
     {
         SimpleDateFormat format = new SimpleDateFormat("MM");
@@ -96,6 +122,9 @@ public class ClockController {
         return Integer.parseInt(strDate);
     }
 
+    /*
+     * Returns the current year
+     */
     public int getYear()
     {
         SimpleDateFormat format = new SimpleDateFormat("yyyy");
@@ -123,11 +152,17 @@ public class ClockController {
         update();
     }
 
+    /*
+     * Carries out Undo
+     */
     public void undo()
     {
         ClockCommandQueue.getInstance().undo();
     }
 
+    /*
+     * Carries out Redo
+     */
     public void redo()
     {
         ClockCommandQueue.getInstance().redo();

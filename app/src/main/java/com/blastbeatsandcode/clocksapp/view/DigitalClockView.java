@@ -15,6 +15,7 @@ import com.blastbeatsandcode.clocksapp.controller.ClockController;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Clock;
 import java.util.Calendar;
 
 public class DigitalClockView extends LinearLayout implements ClockView {
@@ -53,8 +54,8 @@ public class DigitalClockView extends LinearLayout implements ClockView {
     private void init(TextView textView)
     {
         _text = textView;
-        DateFormat dateFormat = new SimpleDateFormat("MMMM dd, YYYY hh:mm:ss a");
-        String dateStr = dateFormat.format(_c.getDate()).toString();
+        DateFormat dateFormat = new SimpleDateFormat("MMMM dd, YYYY hh:mm:ss");
+        String dateStr = dateFormat.format(_c.getDate()).toString() + ClockController.getInstance().isAMOrPM();
         try {
             _text.setText("\n" + dateStr + "\n");
         }
@@ -74,8 +75,8 @@ public class DigitalClockView extends LinearLayout implements ClockView {
                 // We have to run this on the main UI thread, which is why this view accepts an activity in the constructor
                 ((Activity) _uiThreadActivity).runOnUiThread(new Runnable() {
                     public void run() {
-                        DateFormat dateFormat = new SimpleDateFormat("MMMM dd, YYYY hh:mm:ss a");
-                        String dateStr = dateFormat.format(_c.getDate()).toString();
+                        DateFormat dateFormat = new SimpleDateFormat("MMMM dd, YYYY hh:mm:ss");
+                        String dateStr = dateFormat.format(_c.getDate()).toString() + ClockController.getInstance().isAMOrPM();
 
                         try {
                             _text.setText("\n" + dateStr + "\n");
