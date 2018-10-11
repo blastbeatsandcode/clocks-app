@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,13 +14,13 @@ import com.blastbeatsandcode.clocksapp.controller.ClockController;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Clock;
-import java.util.Calendar;
 
+/*
+ * Logic for Digital Clock Views
+ */
 public class DigitalClockView extends LinearLayout implements ClockView {
 
     private TextView _text;
-    private ClockController _c;
     private Activity _uiThreadActivity;
 
 
@@ -40,7 +39,6 @@ public class DigitalClockView extends LinearLayout implements ClockView {
     public DigitalClockView(Context context, @Nullable AttributeSet attrs, TextView textView, Activity activity)
     {
         super(context, attrs);
-        _c = ClockController.getInstance();
         _uiThreadActivity = activity;
         setOrientation(LinearLayout.VERTICAL);
         LayoutInflater.from(context).inflate(R.layout.digital_clock_view, this, true);
@@ -55,7 +53,7 @@ public class DigitalClockView extends LinearLayout implements ClockView {
     {
         _text = textView;
         DateFormat dateFormat = new SimpleDateFormat("MMMM dd, YYYY hh:mm:ss");
-        String dateStr = dateFormat.format(_c.getDate()).toString() + ClockController.getInstance().isAMOrPM();
+        String dateStr = dateFormat.format(ClockController.getInstance().getDate()).toString() + ClockController.getInstance().isAMOrPM();
         try {
             _text.setText("\n" + dateStr + "\n");
         }
@@ -76,7 +74,7 @@ public class DigitalClockView extends LinearLayout implements ClockView {
                 ((Activity) _uiThreadActivity).runOnUiThread(new Runnable() {
                     public void run() {
                         DateFormat dateFormat = new SimpleDateFormat("MMMM dd, YYYY hh:mm:ss");
-                        String dateStr = dateFormat.format(_c.getDate()).toString() + ClockController.getInstance().isAMOrPM();
+                        String dateStr = dateFormat.format(ClockController.getInstance().getDate()).toString() + ClockController.getInstance().isAMOrPM();
 
                         try {
                             _text.setText("\n" + dateStr + "\n");

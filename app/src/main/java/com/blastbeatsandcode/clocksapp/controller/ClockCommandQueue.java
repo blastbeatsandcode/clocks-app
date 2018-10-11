@@ -1,14 +1,16 @@
 package com.blastbeatsandcode.clocksapp.controller;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Queue for storing commands.
+ * This enables us to add Undo and Redo funcationality
+ */
 public class ClockCommandQueue
 {
     // Holds a list of commands
-    private static List<ClockCommand> _stack = new ArrayList<ClockCommand>();
+    private List<ClockCommand> _stack = new ArrayList<ClockCommand>();
 
     private int _curIndex = 0;
     private int _maxIndex = 0;

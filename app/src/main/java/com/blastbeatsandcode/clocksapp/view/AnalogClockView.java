@@ -8,16 +8,19 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
 import com.blastbeatsandcode.clocksapp.controller.ClockController;
 import com.blastbeatsandcode.clocksapp.utils.Enums;
 
-import java.time.Clock;
 import java.util.Calendar;
 
+/*
+ * Logic for Analog Clock Views
+ * The UI for the face of the clock was made possible with help from this article:
+ * https://viblo.asia/p/simple-way-to-create-a-custom-analog-clock-in-android-1VgZv9aRKAw
+ */
 public class AnalogClockView extends View implements ClockView {
     private Activity _uiThreadActivity;
 
@@ -125,10 +128,8 @@ public class AnalogClockView extends View implements ClockView {
             int x = (int) (_width / 2 + Math.cos(angle) * _radius - _rect.width() / 2) + 25;
             int y = (int) (_height / 2 + Math.sin(angle) * _radius + _rect.height() / 2);
 
-            canvas.drawText(Integer.toString(h.getValue()), x, y, _paint);  // you can draw dots to denote hours as alternative
+            canvas.drawText(Integer.toString(h.getValue()), x, y, _paint);
         }
-
-        // TODO: Draw the date
 
         String month = Integer.toString(ClockController.getInstance().getMonthOfYear());
         String day = Integer.toString(ClockController.getInstance().getDayOfMonth());
@@ -151,6 +152,9 @@ public class AnalogClockView extends View implements ClockView {
         invalidate();
     }
 
+    /*
+     * Draw the hand lines
+     */
     private void drawHandLine(Canvas canvas, double moment, boolean isHour, boolean isSecond)
     {
         double angle = Math.PI * moment / 30 - Math.PI / 2;

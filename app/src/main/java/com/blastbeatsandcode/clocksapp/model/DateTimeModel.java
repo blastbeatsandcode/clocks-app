@@ -15,14 +15,11 @@ import com.blastbeatsandcode.clocksapp.utils.Messages;
 import static android.content.ContentValues.TAG;
 
 public class DateTimeModel {
-    ClockController _c;
     Date _currentTime;
 
     // Constructor for the DateTimeModel
-    public DateTimeModel(ClockController c)
+    public DateTimeModel()
     {
-        _c = ClockController.getInstance();
-
         // Set current time as the actual current time by default
         _currentTime = Calendar.getInstance().getTime();
 
@@ -51,7 +48,7 @@ public class DateTimeModel {
      */
     private void update()
     {
-        _c.update();
+        ClockController.getInstance() .update();
     }
 
     public Date getDate()

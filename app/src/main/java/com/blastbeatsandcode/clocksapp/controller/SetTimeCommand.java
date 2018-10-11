@@ -3,8 +3,8 @@ package com.blastbeatsandcode.clocksapp.controller;
 import java.util.Date;
 
 public class SetTimeCommand implements ClockCommand {
-    Date _previousDate;
-    Date _currentDate;
+    private Date _previousDate;
+    private Date _currentDate;
 
     public SetTimeCommand(Date date)
     {
