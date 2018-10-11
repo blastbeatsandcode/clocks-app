@@ -23,8 +23,7 @@ The view is made up of several views, including the `MainActivity` class (which 
 
 The utils package consists of an `Enums` class and a `Messages` class. The former is used to iterate over each of the hours on an analog clock when we are drawing the clock face, and the latter is used to display toasts easily to any context. This was used primarily when testing.
 
-The following is a UML diagram of the program:
-![](images/UML_Diagram.png)
+The `images` folder contains a [UML diagram](images/UML_Diagram.png) of the program.
 
 
 ### Dependencies
