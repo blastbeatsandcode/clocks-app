@@ -1,13 +1,13 @@
 # clocks-app
 This application is my code for the second homework for CEG 4110 at WSU. The intention of this assignment is to test the student's ability to create a project using an MVC design pattern. The application allows the user to display as many analog and/or digital clock views as they want. The user is able to set the time and date and all of the clock views will update concurrently. The user also has the ability to undo and redo the time changes they make.
 
-<center>
+<p align="center>
 
-![](images/scrn_1.png) | ![](images/scrn_2.png)
+![](images/scrn_1.png) ![](images/scrn_2.png)
 
-![](images/scrn_3.png) | ![](images/scrn_4.png)
+![](images/scrn_3.png) ![](images/scrn_4.png)
 
-</center>
+</p>
 
 ### Design and Implementation
 
