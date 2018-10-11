@@ -3,7 +3,7 @@ This application is my code for the second homework for CEG 4110 at WSU. The int
 
 <center>
 
-![](images/scrn_1.png | ![](images/scrn_2.png)
+![](images/scrn_1.png) | ![](images/scrn_2.png)
 
 ![](images/scrn_3.png) | ![](images/scrn_4.png)
 
